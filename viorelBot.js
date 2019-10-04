@@ -4,7 +4,7 @@ const client = new Discord.Client()
 
 const culoare = require("./colors.json")
 
-const TOKEN = "NjI0NjAyNDI5NTc2NDQ1OTY3.XY82xg.ZtSkg_ah4aSePW-_gSb0ADGkPuY"
+const TOKEN = "NjI0NjAyNDI5NTc2NDQ1OTY3.XZetVg.S2UA8CSgEpMb7vkSu9K9Y4EWxEY"
 
 
 client.on('guildMemberAdd', function(member) {
@@ -140,10 +140,10 @@ function processCommand(receivedMessage)
     {
         randomCatCommand(receivedMessage)
     }
-    // else if(primaryCommand == "randomfrog")
-    // {
-    //     randomFrogCommand(receivedMessage)
-    // }
+    else if(primaryCommand == "randomfrog")
+    {
+        randomFrogCommand(receivedMessage)
+    }
     else
     {
         receivedMessage.channel.send("Io nus de paici nu inteleg ceai zas. Incearca " + commands)
@@ -283,29 +283,33 @@ function randomCatCommand(receivedMessage)
         case 8 : receivedMessage.channel.send({files : ["https://i.imgur.com/54XVXeS.jpg"]}); break;
         case 9 : receivedMessage.channel.send({files : ["https://i.pinimg.com/originals/f6/e6/25/f6e625c53b9d056708f763f225dea616.png"]}); break;
         case 10 : receivedMessage.channel.send({files : ["https://epicpix.com/wp-content/uploads/2019/09/ff_6653.jpg"]}); break;
+        // default : receivedMessage.channel.send("something wrong, nigga"); break;
     }
 
-    // receivedMessage.channel.send(randomNum)
+    // receivedMessage.channel.send(randomNum1)
 }
 
-// function randomFrogCommand(receivedMessage)
-// {
-//     let randomNum2 = Math.floor((Math.random() * 10) + 1)
+function randomFrogCommand(receivedMessage)
+{
+    let randomNum2 = Math.floor((Math.random() * 10) + 1)
 
-//     switch (randomNum2)
-//     {
-//         case 1 : receivedMessage.channel.send({files : [""]}); break;
-//         case 2 : receivedMessage.channel.send({files : [""]}); break;
-//         case 3 : receivedMessage.channel.send({files : [""]}); break;
-//         case 4 : receivedMessage.channel.send({files : [""]}); break;
-//         case 5 : receivedMessage.channel.send({files : [""]}); break;
-//         case 6 : receivedMessage.channel.send({files : [""]}); break;
-//         case 7 : receivedMessage.channel.send({files : [""]}); break;
-//         case 8 : receivedMessage.channel.send({files : [""]}); break;
-//         case 9 : receivedMessage.channel.send({files : [""]}); break;
-//         case 10 : receivedMessage.channel.send({files : [""]}); break;
-//     }
-// }
+    switch (randomNum2)
+    {
+        case 1 : receivedMessage.channel.send({files : ["https://pbs.twimg.com/ext_tw_video_thumb/1160039964400390145/pu/img/OfcvqoR9SyJFOCtU.jpg"]}); break;
+        case 2 : receivedMessage.channel.send({files : ["https://i.imgur.com/KciEMjZ.jpg"]}); break;
+        case 3 : receivedMessage.channel.send({files : ["https://66.media.tumblr.com/c8c2a3bd52187cb379a5c5d5d11a25ce/tumblr_pc7dsjVQ401x8aauno1_640.jpg"]}); break;
+        case 4 : receivedMessage.channel.send({files : ["https://c7.uihere.com/files/970/760/851/twitch-tv-pepe-the-frog-emote-meme-meme-thumb.jpg"]}); break;
+        case 5 : receivedMessage.channel.send({files : ["https://i.pinimg.com/originals/d3/55/8c/d3558c292f1a893a1a506fa404abc569.jpg"]}); break;
+        case 6 : receivedMessage.channel.send({files : ["https://i.imgur.com/3cHgEiF.jpg"]}); break;
+        case 7 : receivedMessage.channel.send({files : ["https://pbs.twimg.com/media/DsxAQz6WkAE6V0O.jpg"]}); break;
+        case 8 : receivedMessage.channel.send({files : ["https://pbs.twimg.com/media/D6e4Fc_VUAEZolM.jpg"]}); break;
+        case 9 : receivedMessage.channel.send({files : ["https://i.redd.it/55063wjrjdo21.jpg"]}); break;
+        case 10 : receivedMessage.channel.send({files : ["https://i.ytimg.com/vi/ZJT9CeEhM10/hqdefault.jpg"]}); break;
+        // default : receivedMessage.channel.send("something wrong, nigga"); break;
+    }
+
+    receivedMessage.channel.send(randomNum2)
+}
 
 
 client.login(TOKEN)
