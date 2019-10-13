@@ -4,7 +4,11 @@ const client = new Discord.Client()
 
 const culoare = require("./colors.json")
 
-const TOKEN = "NjI0NjAyNDI5NTc2NDQ1OTY3.XZetVg.S2UA8CSgEpMb7vkSu9K9Y4EWxEY"
+// const TOKEN
+
+const ytdl = require("ytdl-core")
+
+var servers = {}
 
 
 client.on('guildMemberAdd', function(member) {
@@ -31,7 +35,6 @@ client.on('ready', () => {
     })
 
     let generalChannel = client.channels.get("624601637545050114")
-    // generalChannel.send("bitch nigga")
 })
 
 client.on('message', (receivedMessage) => {
@@ -48,8 +51,6 @@ client.on('message', (receivedMessage) => {
     }
 })
 
-let servers = {}
-
 let commands = [
     "`?help` ",
     "`?add` ", "`?multiply` ",
@@ -57,7 +58,7 @@ let commands = [
     "`?react` ",
     "`?creeper` ", "`?creepersong` ",
     "`?image`",
-    "`?randomcat`",
+    "`?randomcat`", "`randomfrog`",
     "`?play numa ca nu mere inca` "
 ];
 
@@ -71,7 +72,7 @@ function processCommand(receivedMessage)
 
     if(primaryCommand == "help") 
     {
-        helpCommand(arguments, receivedMessage)
+        helpCommand(receivedMessage)
     }
     else if(primaryCommand == "add")
     {
@@ -93,44 +94,13 @@ function processCommand(receivedMessage)
     {
         mentionCommand(receivedMessage)
     }
-    else if(primaryCommand == "play")
-    {
-        playCommand(receivedMessage, arguments)
-    }
+    // else if(primaryCommand == "play")
+    // {
+    //     playCommand(receivedMessage, arguments)
+    // }
     else if(primaryCommand == "creeper")
     {
         creeperCommand(receivedMessage)
-    }
-    else if(primaryCommand == "creepersong")
-    {
-        let creeperEmbed = new Discord.RichEmbed()
-        .setColor(culoare.pastel_green)
-        .setTitle("Revenge (Minecraft Song)")
-        .setFooter("Lyrics")
-        .addField("CREEPER!   --   awwww maaan")
-        .setDescription(
-            "It's time to go get your revenge " +
-            "So we back in the mine, got our pick axe swinging side to side, day and night " +
-            "This task a grueling one, hope to find some diamonds tonight, oh how they shine " +
-            "Then it's heads up, hear a sound you freeze up, turn around and look up, total shock fills your body, " +
-            "Is this the end? " +
-            "Can't believe it's you again " +
-            "I could never forget those eyes " +
-            "'Cause baby tonight, the creeper's trying to steal your stuff again, again, again" +
-            "'Cause baby tonight, you grab your pick, shovel and bolt again, again, again" +
-            "And run, run, run until it's done, done, then you run, run, run until the sun" +
-            "Sun comes up in the morn'" +
-            "'Cause baby tonight, the creeper's trying to steal your stuff again, again, again" +
-            "Just when you think you're safe, hear some hissing from right behind, escape denied" +
-            "That's a nice life you have, shame it's gotta end at this time, now you're mine" +
-            "Then he blows up, and your health bar it drops, you could use a 1-up, get inside don't be tardy," +
-            "Now you're stuck in there, all alone in despair, half a heart is left now but don't die" +
-            "'Cause baby tonight, the creeper's trying to steal your stuff again, again, again" +
-            "'Cause baby tonight, you grab your pick, shovel and bolt again, again, again" +
-            "And run, run, run until it's done, done, then you run, run, run until the sun" +
-            "Sun comes up in the morn'"+
-            "'Cause baby tonight, the creeper's trying to steal your stuff again, again, again");
-        receivedMessage.channel.send({embed : creeperEmbed});
     }
     else if(primaryCommand == "image")
     {
@@ -150,12 +120,9 @@ function processCommand(receivedMessage)
     }
 }
 
-function helpCommand(arguments, receivedMessage)
+function helpCommand(receivedMessage)
 {
-    if(arguments.length == 0)
-    {
-        receivedMessage.channel.send("ok nu imi pasa")
-    }
+    receivedMessage.channel.send("ok nu imi pasa")
 }
 
 function addCommand(arguments, receivedMessage)
@@ -222,7 +189,7 @@ function reactCommand(arguments, receivedMessage)
 {
     if(arguments == "smile") receivedMessage.react("😃")
     else if(arguments == "haha") receivedMessage.react("😂")
-    else if(arguments == "love") receivedMessage.react("😍")
+    else if(arguments == "love" || arguments == "poop") receivedMessage.react("😍")
     else if(arguments == "shit") receivedMessage.react("💩")
     else if(arguments == "wow") receivedMessage.react("😮")
     else if(arguments == "cry") receivedMessage.react("😥")
@@ -267,6 +234,53 @@ function ImageCommand(receivedMessage, arguments)
     }
 }
 
+// function playCommand(receivedMessage, arguments)
+// {
+//     function play(connection, receivedMessage)
+//     {
+//         var server = servers[receivedMessage.guild.id]
+
+//         server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: "audioonly"}))
+
+//         server.queue.shift()
+
+//         server.dispatcher.on("end", function(){
+//             if(server.queue[0])
+//             {
+//                 play(connection, receivedMessage)
+//             }
+//             else
+//             {
+//                 connection.disconnect()
+//             }
+//         })
+//     }
+
+//     // if(!arguments[1])
+//     // {
+//     //     receivedMessage.channel.send("Please provide a link")
+//     //     return
+//     // }
+
+//     if(!receivedMessage.member.voiceChannel)
+//     {
+//         receivedMessage.channel.send("Daca vrei sa-ti arat schema haida in voice channel ca altfel nu mere")
+//         return
+//     }
+
+//     if(!servers[receivedMessage.guild.id]) servers[receivedMessage.guild.id] = {
+//         queue: []
+//     }
+
+//     var server = servers[receivedMessage.guild.id]
+
+//     server.queue.push(arguments[1])
+
+//     if(!receivedMessage.guild.voiceConnection) receivedMessage.member.voiceChannel.join().then(function(connection){
+//         play(connection, receivedMessage)
+//     })
+// }
+
 function randomCatCommand(receivedMessage)
 {
     let randomNum1 = Math.floor((Math.random() * 10) + 1)
@@ -283,7 +297,6 @@ function randomCatCommand(receivedMessage)
         case 8 : receivedMessage.channel.send({files : ["https://i.imgur.com/54XVXeS.jpg"]}); break;
         case 9 : receivedMessage.channel.send({files : ["https://i.pinimg.com/originals/f6/e6/25/f6e625c53b9d056708f763f225dea616.png"]}); break;
         case 10 : receivedMessage.channel.send({files : ["https://epicpix.com/wp-content/uploads/2019/09/ff_6653.jpg"]}); break;
-        // default : receivedMessage.channel.send("something wrong, nigga"); break;
     }
 
     // receivedMessage.channel.send(randomNum1)
@@ -298,18 +311,17 @@ function randomFrogCommand(receivedMessage)
         case 1 : receivedMessage.channel.send({files : ["https://pbs.twimg.com/ext_tw_video_thumb/1160039964400390145/pu/img/OfcvqoR9SyJFOCtU.jpg"]}); break;
         case 2 : receivedMessage.channel.send({files : ["https://i.imgur.com/KciEMjZ.jpg"]}); break;
         case 3 : receivedMessage.channel.send({files : ["https://66.media.tumblr.com/c8c2a3bd52187cb379a5c5d5d11a25ce/tumblr_pc7dsjVQ401x8aauno1_640.jpg"]}); break;
-        case 4 : receivedMessage.channel.send({files : ["https://c7.uihere.com/files/970/760/851/twitch-tv-pepe-the-frog-emote-meme-meme-thumb.jpg"]}); break;
+        case 4 : receivedMessage.channel.send({files : ["https://i.pinimg.com/originals/63/da/e6/63dae66f51f991edf9c3bde8e9a4fdb8.jpg"]}); break;
         case 5 : receivedMessage.channel.send({files : ["https://i.pinimg.com/originals/d3/55/8c/d3558c292f1a893a1a506fa404abc569.jpg"]}); break;
         case 6 : receivedMessage.channel.send({files : ["https://i.imgur.com/3cHgEiF.jpg"]}); break;
         case 7 : receivedMessage.channel.send({files : ["https://pbs.twimg.com/media/DsxAQz6WkAE6V0O.jpg"]}); break;
         case 8 : receivedMessage.channel.send({files : ["https://pbs.twimg.com/media/D6e4Fc_VUAEZolM.jpg"]}); break;
         case 9 : receivedMessage.channel.send({files : ["https://i.redd.it/55063wjrjdo21.jpg"]}); break;
         case 10 : receivedMessage.channel.send({files : ["https://i.ytimg.com/vi/ZJT9CeEhM10/hqdefault.jpg"]}); break;
-        // default : receivedMessage.channel.send("something wrong, nigga"); break;
     }
 
-    receivedMessage.channel.send(randomNum2)
+    // receivedMessage.channel.send(randomNum2)
 }
 
 
-client.login(TOKEN)
+// client.login(TOKEN)
