@@ -2,9 +2,7 @@ const Discord = require('discord.js')
 
 const client = new Discord.Client()
 
-const culoare = require("./colors.json")
-
-// const TOKEN
+const TOKEN = "NjI0NjAyNDI5NTc2NDQ1OTY3.Xa3tgQ.UbG46BCuqK9YQpudqZGXwhS5zGg"
 
 const ytdl = require("ytdl-core")
 
@@ -56,7 +54,6 @@ let commands = [
     "`?add` ", "`?multiply` ",
     "`?nword` ",
     "`?react` ",
-    "`?creeper` ", "`?creepersong` ",
     "`?image`",
     "`?randomcat`", "`randomfrog`",
     "`?play numa ca nu mere inca` "
@@ -98,10 +95,6 @@ function processCommand(receivedMessage)
     // {
     //     playCommand(receivedMessage, arguments)
     // }
-    else if(primaryCommand == "creeper")
-    {
-        creeperCommand(receivedMessage)
-    }
     else if(primaryCommand == "image")
     {
         ImageCommand(receivedMessage, arguments)
@@ -113,6 +106,10 @@ function processCommand(receivedMessage)
     else if(primaryCommand == "randomfrog")
     {
         randomFrogCommand(receivedMessage)
+    }
+    else if(primaryCommand == "8ball")
+    {
+        eightBall(arguments, receivedMessage)
     }
     else
     {
@@ -211,11 +208,6 @@ function reactCommand(arguments, receivedMessage)
 function mentionCommand(receivedMessage)
 {
     receivedMessage.channel.send(receivedMessage.author.toString())
-}
-
-function creeperCommand(receivedMessage)
-{
-    receivedMessage.channel.send(receivedMessage.author.toString() + " awww maan")
 }
 
 function ImageCommand(receivedMessage, arguments)
@@ -323,5 +315,32 @@ function randomFrogCommand(receivedMessage)
     // receivedMessage.channel.send(randomNum2)
 }
 
+function eightBall(arguments, receivedMessage)
+{
+    num = Math.floor((Math.random() * 10) + 1)
 
-// client.login(TOKEN)
+    if(arguments.length < 1)
+    {
+        receivedMessage.channel.send("Not enough arguments. Ask a YES or NO question.")
+    }
+    else
+    {
+        switch(num)
+        {
+            case 1 : receivedMessage.channel.send("YES"); break;
+            case 2 : receivedMessage.channel.send("NO"); break;
+            case 3 : receivedMessage.channel.send("hmm probably"); break;
+            case 4 : receivedMessage.channel.send("maybe not"); break;
+            case 5 : receivedMessage.channel.send("yes, and everyone knows that"); break;
+            case 6 : receivedMessage.channel.send("umm im gonna say no"); break;
+            case 7 : receivedMessage.channel.send("most likely"); break;
+            case 8 : receivedMessage.channel.send("no, it`s not possible"); break;
+            case 9 : receivedMessage.channel.send("i don`t think so"); break;
+            case 10 : receivedMessage.channel.send("that`s correct!"); break;
+        }
+    }
+    // receivedMessage.channel.send(num)
+}
+
+
+client.login(TOKEN)
